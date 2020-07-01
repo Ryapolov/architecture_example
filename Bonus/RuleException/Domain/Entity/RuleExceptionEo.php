@@ -66,4 +66,9 @@ class RuleExceptionEo implements RuleException
     {
         // TODO: Implement setItem() method.
     }
+
+    public function getId(): int
+    {
+        // TODO: Implement getId() method.
+    }
 }

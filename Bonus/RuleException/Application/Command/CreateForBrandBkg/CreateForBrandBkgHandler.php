@@ -38,6 +38,8 @@ class CreateForBrandBkgHandler
 
         $obRuleException = $this->service->createForBrandBkg($this->command->getBrandId(), $this->command->getBkgId());
         $this->repository->save($obRuleException);
+
+        $this->service->getRecordedEvents();
     }
 
     private function doubleCheck()

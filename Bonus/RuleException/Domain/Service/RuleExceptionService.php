@@ -3,10 +3,14 @@
 namespace Opt\NewCatalog\RuleException\Domain\Service;
 
 use Bitrix\Main\Type\DateTime;
+use Opt\NewCatalog\Common\EventRecorder;
+use Opt\NewCatalog\RuleException\Domain\Event\RuleExceptionByBrandBkgWasCreatedEvent;
 use Opt\NewCatalog\RuleException\Entity\RuleException;
 
 class RuleExceptionService
 {
+    use EventRecorder;
+
     /**
      * @var RuleException
      */
@@ -17,10 +21,19 @@ class RuleExceptionService
         $this->obRuleException = $obRuleException;
     }
 
+    public function deactivate()
+    {
+        $this->obRuleException->setActive(false);
+        $this->obRuleException->setDateModify(new DateTime());
+    }
+
     public function createForBrandBkg(int $brandId, int $bkgId)
     {
         $this->obRuleException->setBrand($brandId);
         $this->obRuleException->setBkg($bkgId);
+
+        $event = new RuleExceptionByBrandBkgWasCreatedEvent($this->obRuleException->getId());
+        $this->record($event);
 
         return $this->create();
     }
@@ -38,6 +51,14 @@ class RuleExceptionService
         $this->obRuleException->setDateCreate(new DateTime());
         $this->obRuleException->setDateModify(new DateTime());
 
+        return $this->obRuleException;
+    }
+
+    /**
+     * @return RuleException
+     */
+    public function getEntity(): RuleException
+    {
         return $this->obRuleException;
     }
 }

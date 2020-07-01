@@ -6,6 +6,7 @@ use Bitrix\Main\Type\DateTime;
 
 interface RuleException
 {
+    public function getId(): int;
     public function getDateCreate(): DateTime;
     public function getDateModify(): DateTime;
     public function isActive(): bool;

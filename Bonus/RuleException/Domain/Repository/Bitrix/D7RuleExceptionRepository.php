@@ -17,4 +17,9 @@ class D7RuleExceptionRepository implements RuleExceptionRepositoryInterface
     {
         // TODO: Implement save() method.
     }
+
+    public function getById(int $id): RuleException
+    {
+        return RuleExceptionTable::getById($id)->fetchObject();
+    }
 }

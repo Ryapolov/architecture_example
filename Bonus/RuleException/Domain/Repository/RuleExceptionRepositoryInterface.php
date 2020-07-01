@@ -8,5 +8,7 @@ interface RuleExceptionRepositoryInterface
 {
     public function findByBrandAndBkg(int $brandId, int $bkgId);
 
+    public function getById(int $id): RuleException;
+
     public function save(RuleException $obRuleException);
 }
